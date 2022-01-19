@@ -21,13 +21,71 @@ namespace MajdnemDolgozat1
             Feladat05();
             Feladat06();
             Feladat07();
+            Feladat09();
+            Feladat10();
 
             Console.ReadKey();
         }
 
+        private static void Feladat10()
+        {
+            float OsszesenMegjelent = 0;
+            float MegjelentPCn = 0;
+            foreach (var item in Jatekok)
+            {
+                if (item.Kiado== "Electronic Arts") OsszesenMegjelent++;
+                if (item.Kiado== "Electronic Arts" & item.Platform.Contains("PC")) MegjelentPCn++;
+
+            }
+            Console.WriteLine("10. feladat:");
+            Console.WriteLine($"\tAz Electronic Arts jatekainak {(MegjelentPCn/OsszesenMegjelent)*100} %-a jelent meg PC-n");
+
+        }
+
+        private static void Feladat09()
+        {
+            List<string> list = new List<string>(); 
+            Console.WriteLine("9. feladat:");
+            Console.Write("\tIrja be egy platform nevet :");
+            string BekertPlatformNeve = Console.ReadLine();
+            Console.WriteLine("\tEzen a platformon a kovetkezo jatekok erhetoek el peldaul:");
+            foreach (var item in Jatekok)
+            {
+                if (item.Platform.Contains(BekertPlatformNeve)) list.Add(item.Cim);
+            }
+
+            int sorszam = 1;
+            foreach (var item in list)
+            {
+                Console.WriteLine($"{sorszam}. {item}");
+                sorszam++;  
+            }
+
+        }
+
         private static void Feladat07()
         {
-          
+            Dictionary<string,int> LegtobbJatek = new Dictionary<string,int>();
+
+            foreach (var item in Jatekok)
+            {
+                if (LegtobbJatek.ContainsKey(item.Kiado))
+                {
+                    LegtobbJatek[item.Kiado]++;
+
+                }
+                else
+                {
+                    LegtobbJatek.Add(item.Kiado, 1);
+                }
+            }
+
+            string nev = LegtobbJatek.OrderBy(x => x.Value).Last().Key;
+            int darab = LegtobbJatek.OrderBy(x => x.Value).Last().Value;
+
+            Console.WriteLine("7. feladat:");
+            Console.WriteLine($"\tA legtobb jatekkal szereplo kiado: {nev} ({darab} jatek)");
+
         }
 
         private static void Feladat06()
